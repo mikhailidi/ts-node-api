@@ -26,7 +26,8 @@ export default class TenantPaymentController extends Controller {
    */
   public search(req: Request, res: Response, next: NextFunction): void {
     try {
-      const tenantPayments = this.service.searchByContractId(123);
+      const { contractId } = req.params;
+      const tenantPayments = this.service.searchByContractId(Number(contractId));
 
       super.sendSuccess(res, {
         sum: 0,

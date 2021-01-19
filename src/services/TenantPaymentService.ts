@@ -1,9 +1,9 @@
-import { IRepository } from '../interfaces/Repository';
 import { IService } from '../interfaces/Service';
+import { TenantPayment } from '../models/TenantPayment';
 import { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
 
 export interface ITenantPaymentService extends IService {
-  searchByContractId(contractId: number): [];
+  searchByContractId(contractId: number): TenantPayment[];
 }
 
 export default class TenantPaymentService implements ITenantPaymentService {
@@ -17,7 +17,7 @@ export default class TenantPaymentService implements ITenantPaymentService {
    * 
    * @param contractId 
    */
-  searchByContractId(contractId: number): [] {
-    return [];
+  public searchByContractId(contractId: number): TenantPayment[] {
+    return this.repository.getByContractId(contractId);
   }
 }
