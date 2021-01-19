@@ -1,4 +1,4 @@
-export interface ITenant {
+export interface TenantPayment {
   id: number;
   contractId: number;
   description: string;
