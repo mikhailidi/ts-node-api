@@ -4,6 +4,14 @@ import App from '../../../src/App';
 const CONTRACT_HAS_NO_PAYMENT_HISTORY = 123;
 
 describe('Retrieving tenant payment history', () => {
+  /**
+   * After all tests are done
+   */
+  afterAll(async done => {
+    App.close();
+    done();
+  });
+
   it('Tests endpoint returns success response for contract with no payment history', async () => {
     const result = await request(App)
       .get(`/contracts/${CONTRACT_HAS_NO_PAYMENT_HISTORY}/payments/search`)
