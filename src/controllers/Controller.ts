@@ -1,4 +1,5 @@
 import { Response, Request, NextFunction, Router } from 'express';
+import { IService } from '../interfaces/Service';
 
 export enum Methods {
     GET = 'GET',
@@ -17,6 +18,11 @@ export default abstract class Controller {
     public router: Router = Router();
     public abstract path: string;
     protected abstract readonly routes: Array<IRoute> = [];
+    protected service: IService;
+
+    constructor(service: IService) {
+        this.service = service;
+    }
 
     public setRoutes = (): Router => {
         for (const route of this.routes) {
