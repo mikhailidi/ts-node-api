@@ -1,9 +1,10 @@
 import { IService } from '../interfaces/Service';
 import { TenantPayment } from '../models/TenantPayment';
-import { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
+import TenantPaymentRepository, { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
 
 export interface ITenantPaymentService extends IService {
   searchByContractId(contractId: number): TenantPayment[];
+  calculateTenantPaymentSum(tenantPayments: TenantPayment[]): number;
 }
 
 export default class TenantPaymentService implements ITenantPaymentService {
@@ -19,5 +20,19 @@ export default class TenantPaymentService implements ITenantPaymentService {
    */
   public searchByContractId(contractId: number): TenantPayment[] {
     return this.repository.getByContractId(contractId);
+  }
+
+  /**
+   * 
+   * @param tenantPayments 
+   */
+  public calculateTenantPaymentSum(tenantPayments: TenantPayment[]): number {
+    let sum: number = 0;
+
+    tenantPayments.forEach(tenantPayment => {
+      sum += tenantPayment.value;
+    });
+
+    return sum;
   }
 }

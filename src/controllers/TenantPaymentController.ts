@@ -28,9 +28,10 @@ export default class TenantPaymentController extends Controller {
     try {
       const { contractId } = req.params;
       const tenantPayments = this.service.searchByContractId(Number(contractId));
+      const tenantPaymentSum = this.service.calculateTenantPaymentSum(tenantPayments);
 
       super.sendSuccess(res, {
-        sum: 0,
+        sum: tenantPaymentSum,
         items: tenantPayments
       });
     } catch(e) {
