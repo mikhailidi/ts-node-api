@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { ITenantPaymentService } from '../services/TenantPaymentService';
 import Controller, { Methods } from './Controller';
 
 export default class TenantPaymentController extends Controller {
@@ -10,6 +11,10 @@ export default class TenantPaymentController extends Controller {
       handler: this.search,
     }
   ];
+
+  constructor(service: ITenantPaymentService) {
+    super(service);
+  }
 
   /**
    * 
