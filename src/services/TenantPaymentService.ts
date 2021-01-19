@@ -3,6 +3,7 @@ import { IService } from '../interfaces/Service';
 import { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
 
 export interface ITenantPaymentService extends IService {
+  searchByContractId(contractId: number): [];
 }
 
 export default class TenantPaymentService implements ITenantPaymentService {
@@ -10,5 +11,13 @@ export default class TenantPaymentService implements ITenantPaymentService {
 
   constructor(repository: ITenantPaymentRepository) {
     this.repository = repository;
+  }
+
+  /**
+   * 
+   * @param contractId 
+   */
+  searchByContractId(contractId: number): [] {
+    return [];
   }
 }

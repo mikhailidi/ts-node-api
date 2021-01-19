@@ -8,9 +8,11 @@ export default class TenantPaymentController extends Controller {
     {
       path: '/:contractId/payments/search',
       method: Methods.GET,
-      handler: this.search,
+      handler: this.search.bind(this), // Binding is necessary to call this.service from methods
     }
   ];
+
+  service: ITenantPaymentService;
 
   constructor(service: ITenantPaymentService) {
     super(service);
@@ -24,9 +26,11 @@ export default class TenantPaymentController extends Controller {
    */
   public search(req: Request, res: Response, next: NextFunction): void {
     try {
+      const tenantPayments = this.service.searchByContractId(123);
+
       super.sendSuccess(res, {
         sum: 0,
-        items: []
+        items: tenantPayments
       });
     } catch(e) {
         console.log(e);
