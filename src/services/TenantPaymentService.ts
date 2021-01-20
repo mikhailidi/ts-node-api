@@ -4,6 +4,7 @@ import { IService } from '../interfaces/Service';
 import { TenantPayment } from '../models/TenantPayment';
 import { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
 import StartFromDateFilter from '../filters/StartFromDateFilter';
+import EndToDateFilter from '../filters/EndToDateFilter';
 
 export type SearchCriteria = {
   startDate: Date | null;
@@ -62,6 +63,11 @@ export default class TenantPaymentService implements ITenantPaymentService {
       if (searchCriteria.startDate) {
         filters.push(
           new StartFromDateFilter(searchCriteria.startDate, tenantPayment.createdAt)
+        )
+      }
+      if (searchCriteria.endDate) {
+        filters.push(
+          new EndToDateFilter(searchCriteria.endDate, tenantPayment.createdAt)
         )
       }
 
