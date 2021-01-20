@@ -4,15 +4,15 @@ import App from '../../../src/App';
 const CONTRACT_HAS_NO_PAYMENT_HISTORY = 123;
 const CONTRACT_HAS_PAYMENT_HISTORY = 111222;
 
-describe('Retrieving tenant payment history', () => {
-  /**
-   * After all tests are done
-   */
-  afterAll(async done => {
-    App.close();
-    done();
-  });
+/**
+ * After all tests are done
+ */
+afterAll(async done => {
+  App.close();
+  done();
+});
 
+describe('Retrieving tenant payment history', () => {
   it('Tests endpoint returns success response for contract with no payment history', async () => {
     const result = await request(App)
       .get(`/contracts/${CONTRACT_HAS_NO_PAYMENT_HISTORY}/payments/search`)
@@ -184,6 +184,28 @@ describe('Retrieving tenant payment history', () => {
           isDeleted: false
         },
       ]
+    });
+  });
+});
+
+describe('Delete payment history', () => {
+  it('Tests successfully deletes payment', async () => {
+    const result = await request(App)
+      .delete(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments/1365`)
+      .send();
+
+    expect(result.status).toBe(204);
+  });
+
+  it('Tests payment does not exist', async () => {
+    const result = await request(App)
+      .delete(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments/99999`)
+      .send();
+
+    expect(result.status).toBe(404);
+    expect(result.body).toMatchObject({
+      code: 404,
+      message: 'Resource not found'
     });
   });
 });
