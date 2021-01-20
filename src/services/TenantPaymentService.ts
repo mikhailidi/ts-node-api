@@ -5,6 +5,7 @@ import { TenantPayment } from '../models/TenantPayment';
 import { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
 import StartFromDateFilter from '../filters/StartFromDateFilter';
 import EndToDateFilter from '../filters/EndToDateFilter';
+import TenantPaymentNotFoundException from '../exceptions/TenantPaymentNotFoundException';
 
 export type SearchCriteria = {
   startDate: Date | null;
@@ -13,6 +14,7 @@ export type SearchCriteria = {
 export interface ITenantPaymentService extends IService {
   searchByContractId(contractId: number, criteria: SearchCriteria): TenantPayment[];
   calculateTenantPaymentSum(tenantPayments: TenantPayment[]): number;
+  deletePayment(paymentId: number): void;
 }
 
 export default class TenantPaymentService implements ITenantPaymentService {
@@ -49,6 +51,20 @@ export default class TenantPaymentService implements ITenantPaymentService {
     });
 
     return sum;
+  }
+
+  /**
+   * 
+   * @param paymentId 
+   */
+  public deletePayment(paymentId: number): void {
+    const tenantPayment = this.repository.getPaymentById(paymentId);
+
+    if (!tenantPayment) {
+      throw new TenantPaymentNotFoundException();
+    }
+
+    this.repository.deletePaymentById(paymentId);
   }
 
   /**
