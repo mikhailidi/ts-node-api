@@ -127,4 +127,28 @@ describe('Retrieving tenant payment history', () => {
       ]
     });
   });
+
+  it('Tests endpoint returns success with endDate only', async () => {
+    const result = await request(App)
+      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments/search?endDate=2018-01-01`)
+      .send();
+
+    expect(result.status).toBe(200);
+    expect(result.body).toMatchObject({
+      sum: -100,
+      items: [
+        {
+          id: 1367,
+          contractId: 111222,
+          description: 'Rent to be paid 2',
+          value: -100,
+          time: '2016-12-01T00:00:00.000Z',
+          isImported: false,
+          createdAt: '2016-12-01T12:57:09.708Z',
+          updatedAt: '2016-12-09T12:57:09.709Z',
+          isDeleted: false
+        },
+      ]
+    });
+  });
 });
