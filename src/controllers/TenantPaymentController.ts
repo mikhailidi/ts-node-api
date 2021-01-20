@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ITenantPaymentService } from '../services/TenantPaymentService';
+import { ITenantPaymentService, SearchCriteria } from '../services/TenantPaymentService';
 import Controller, { Methods } from './Controller';
 
 export default class TenantPaymentController extends Controller {
@@ -27,7 +27,13 @@ export default class TenantPaymentController extends Controller {
   public search(req: Request, res: Response, next: NextFunction): void {
     try {
       const { contractId } = req.params;
-      const tenantPayments = this.service.searchByContractId(Number(contractId));
+      const { startDate, endDate } = req.query;
+
+      const searchCriteria: SearchCriteria = {
+        startDate: startDate ? new Date(String(startDate)) : null,
+        endDate: endDate ? new Date(String(endDate)) : null,
+      }
+      const tenantPayments = this.service.searchByContractId(Number(contractId), searchCriteria);
       const tenantPaymentSum = this.service.calculateTenantPaymentSum(tenantPayments);
 
       super.sendSuccess(res, {

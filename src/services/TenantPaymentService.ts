@@ -1,9 +1,16 @@
+import { objectKeysEmpty } from '../common';
+import { IFilter } from '../interfaces/Filter';
 import { IService } from '../interfaces/Service';
 import { TenantPayment } from '../models/TenantPayment';
-import TenantPaymentRepository, { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
+import { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
+import StartFromDateFilter from '../filters/StartFromDateFilter';
 
+export type SearchCriteria = {
+  startDate: Date | null;
+  endDate: Date | null;
+}
 export interface ITenantPaymentService extends IService {
-  searchByContractId(contractId: number): TenantPayment[];
+  searchByContractId(contractId: number, criteria: SearchCriteria): TenantPayment[];
   calculateTenantPaymentSum(tenantPayments: TenantPayment[]): number;
 }
 
@@ -17,9 +24,16 @@ export default class TenantPaymentService implements ITenantPaymentService {
   /**
    * 
    * @param contractId 
+   * @param criteria 
    */
-  public searchByContractId(contractId: number): TenantPayment[] {
-    return this.repository.getByContractId(contractId);
+  public searchByContractId(contractId: number, criteria: SearchCriteria): TenantPayment[] {
+    const tenantPayments = this.repository.getByContractId(contractId);
+
+    if (!objectKeysEmpty(criteria)) {
+      return this.filterTenantPaymentsBySearchCriteria(tenantPayments, criteria);
+    }
+
+    return tenantPayments;
   }
 
   /**
@@ -34,5 +48,26 @@ export default class TenantPaymentService implements ITenantPaymentService {
     });
 
     return sum;
+  }
+
+  /**
+   * 
+   * @param tenantPayments 
+   * @param searchCriteria 
+   */
+  private filterTenantPaymentsBySearchCriteria(tenantPayments: TenantPayment[], searchCriteria: SearchCriteria): TenantPayment[] {
+    return tenantPayments.filter(tenantPayment => {
+      const filters: IFilter[] = [];
+
+      if (searchCriteria.startDate) {
+        filters.push(
+          new StartFromDateFilter(searchCriteria.startDate, tenantPayment.createdAt)
+        )
+      }
+
+      return filters.every(filter => {
+        return filter.filter();
+      });
+    });
   }
 }
