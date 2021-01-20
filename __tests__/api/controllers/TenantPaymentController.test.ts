@@ -89,7 +89,7 @@ describe('Retrieving tenant payment history', () => {
 
     expect(result.status).toBe(200);
     expect(result.body).toMatchObject({
-      sum: 0,
+      sum: 100,
       items: [
         {
           id: 1368,
