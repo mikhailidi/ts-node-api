@@ -15,7 +15,7 @@ afterAll(async done => {
 describe('Retrieving tenant payment history', () => {
   it('Tests endpoint returns success response for contract with no payment history', async () => {
     const result = await request(App)
-      .get(`/contracts/${CONTRACT_HAS_NO_PAYMENT_HISTORY}/payments/search`)
+      .get(`/contracts/${CONTRACT_HAS_NO_PAYMENT_HISTORY}/payments`)
       .send();
 
     expect(result.status).toBe(200);
@@ -27,7 +27,7 @@ describe('Retrieving tenant payment history', () => {
 
   it('Tests endpoint returns success with no search parameters specified', async () => {
     const result = await request(App)
-      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments/search`)
+      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments`)
       .send();
 
     expect(result.status).toBe(200);
@@ -84,7 +84,7 @@ describe('Retrieving tenant payment history', () => {
 
   it('Tests endpoint returns success with startDate only', async () => {
     const result = await request(App)
-      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments/search?startDate=2018-01-01`)
+      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments?startDate=2018-01-01`)
       .send();
 
     expect(result.status).toBe(200);
@@ -130,7 +130,7 @@ describe('Retrieving tenant payment history', () => {
 
   it('Tests endpoint returns success with endDate only', async () => {
     const result = await request(App)
-      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments/search?endDate=2018-01-01`)
+      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments?endDate=2018-01-01`)
       .send();
 
     expect(result.status).toBe(200);
@@ -154,7 +154,7 @@ describe('Retrieving tenant payment history', () => {
 
   it('Tests endpoint returns success with both startDate and endDate', async () => {
     const result = await request(App)
-      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments/search?startDate=2018-01-01&endDate=2018-12-31`)
+      .get(`/contracts/${CONTRACT_HAS_PAYMENT_HISTORY}/payments?startDate=2018-01-01&endDate=2018-12-31`)
       .send();
 
     expect(result.status).toBe(200);

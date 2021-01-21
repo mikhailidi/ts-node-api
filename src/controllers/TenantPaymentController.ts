@@ -7,7 +7,7 @@ export default class TenantPaymentController extends Controller {
   path = '/contracts';
   routes = [
     {
-      path: '/:contractId/payments/search',
+      path: '/:contractId/payments',
       method: Methods.GET,
       handler: this.search.bind(this), // Binding is necessary to call this.service from methods
     },
