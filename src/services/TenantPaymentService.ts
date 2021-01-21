@@ -1,6 +1,6 @@
 import { objectKeysEmpty } from '../common';
-import { IFilter } from '../interfaces/Filter';
-import { IService } from '../interfaces/Service';
+import { IFilter } from '../interfaces';
+import { IService } from '../interfaces';
 import { TenantPayment } from '../models/TenantPayment';
 import { ITenantPaymentRepository } from '../repositories/TenantPaymentRepository';
 import StartFromDateFilter from '../filters/StartFromDateFilter';

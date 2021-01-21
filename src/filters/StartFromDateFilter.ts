@@ -1,4 +1,4 @@
-import { IFilter } from '../interfaces/Filter';
+import { IFilter } from '../interfaces';
 
 export default class StartFromDateFilter implements IFilter {
   private startDate: Date;

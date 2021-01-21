@@ -1,4 +1,4 @@
-import { IRepository } from "../interfaces/Repository";
+import { IRepository } from "../interfaces";
 import { TenantPayment } from '../models/TenantPayment';
 import { fakeTenantPayments } from '../data/tenantPayment';
 
