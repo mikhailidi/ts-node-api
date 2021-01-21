@@ -17,8 +17,8 @@ export default class TenantPaymentRepository implements ITenantPaymentRepository
    * @param contractId 
    */
   public getByContractId(contractId: number): TenantPayment[] {
-    return this.tenantPayments.filter(tenant => {
-      return tenant.contractId === contractId;
+    return this.tenantPayments.filter(tenantPayment => {
+      return tenantPayment.contractId === contractId;
     });
   }
 

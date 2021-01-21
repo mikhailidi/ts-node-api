@@ -4,8 +4,8 @@ import { ITenantPaymentService, SearchCriteria } from '../services/TenantPayment
 import Controller, { Methods } from './Controller';
 
 export default class TenantPaymentController extends Controller {
-  path = '/contracts';
-  routes = [
+  public path = '/contracts';
+  public routes = [
     {
       path: '/:contractId/payments',
       method: Methods.GET,
@@ -17,8 +17,7 @@ export default class TenantPaymentController extends Controller {
       handler: this.delete.bind(this),
     }
   ];
-
-  service: ITenantPaymentService;
+  protected service: ITenantPaymentService;
 
   constructor(service: ITenantPaymentService) {
     super(service);

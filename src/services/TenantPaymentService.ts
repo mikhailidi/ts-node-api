@@ -32,11 +32,9 @@ export default class TenantPaymentService implements ITenantPaymentService {
   public searchByContractId(contractId: number, criteria: SearchCriteria): TenantPayment[] {
     const tenantPayments = this.repository.getByContractId(contractId);
 
-    if (!objectKeysEmpty(criteria)) {
-      return this.filterTenantPaymentsBySearchCriteria(tenantPayments, criteria);
-    }
-
-    return tenantPayments;
+    return objectKeysEmpty(criteria)
+      ? tenantPayments
+      : this.filterTenantPaymentsBySearchCriteria(tenantPayments, criteria);
   }
 
   /**
