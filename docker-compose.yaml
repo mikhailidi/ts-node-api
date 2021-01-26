@@ -1,0 +1,18 @@
+version: '2'
+services:
+  node:
+    container_name: node-express-ts
+    restart: always
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - '3000:4000'
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo-express-ts
+    image: mongo
+    ports:
+      - '27017:27017'
