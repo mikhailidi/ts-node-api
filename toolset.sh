@@ -20,7 +20,7 @@ case "$1" in
     ;;
   test)
     # executes the tests from docker container 
-    docker exec -it node-express-ts bash -c "yarn test"
+    docker exec -it node-express-ts bash -c "PORT=4001 yarn test"
     ;;
   *)
     paramsError
