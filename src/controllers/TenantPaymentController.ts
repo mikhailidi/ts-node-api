@@ -12,6 +12,11 @@ export default class TenantPaymentController extends Controller {
       handler: this.search.bind(this), // Binding is necessary to call this.service from methods
     },
     {
+      path: '/:contractId/payments',
+      method: Methods.POST,
+      handler: this.create.bind(this),
+    },
+    {
       path: '/:contractId/payments/:paymentId',
       method: Methods.DELETE,
       handler: this.delete.bind(this),
@@ -49,6 +54,16 @@ export default class TenantPaymentController extends Controller {
         console.log(e);
         super.sendError(res, e.message);
     }
+  }
+
+  /**
+   * 
+   * @param req 
+   * @param res 
+   * @param next 
+   */
+  public create(req: Request, res: Response, next: NextFunction): void {
+    res.status(201).send();
   }
 
   /**
