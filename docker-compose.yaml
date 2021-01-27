@@ -3,7 +3,9 @@ services:
   node:
     container_name: node-express-ts
     restart: always
-    build: .
+    build:
+      context: .
+      dockerfile: .ops/Dockerfile
     volumes:
       - .:/app
     ports:
