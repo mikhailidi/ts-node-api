@@ -8,6 +8,8 @@ services:
       - .:/app
     ports:
       - '3000:4000'
+    depends_on:
+      - mongo
     links:
       - mongo
 
