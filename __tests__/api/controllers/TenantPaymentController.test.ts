@@ -188,6 +188,22 @@ describe('Retrieving tenant payment history', () => {
   });
 });
 
+describe('Creates new tenant payment', () => {
+  it('Tests successfully creates payment', async () => {
+    const requestBody = {
+      description: 'Very long text',
+      value: 100,
+      time: '2016-12-09T00:00:00.000Z',
+    };
+
+    const result = await request(App)
+      .post(`/contracts/${CONTRACT_HAS_NO_PAYMENT_HISTORY}/payments`)
+      .send(requestBody);
+
+    expect(result.status).toBe(201);
+  });
+});
+
 describe('Delete payment history', () => {
   it('Tests successfully deletes payment', async () => {
     const result = await request(App)
