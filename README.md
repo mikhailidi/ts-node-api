@@ -2,7 +2,6 @@
 
 - [Installation](#installation)
 - [How to run](#how-to-run)
-- [Available URLs](#available-urls)
 
 # Installation
 
@@ -13,13 +12,6 @@
 
 # How to run
 
-- Run `sh toolset.sh bash` to login to bash container
-- Run `sh toolset.sh test` to run the tests from the Docker container
-
-# Available URLs
-
-- Get all tenant payments for a specific contract: `GET http://localhost:4000/contracts/{:id}/payments`
-- Get all tenant payments for a specific contract starting from specific date: `GET http://localhost:4000/contracts/{:id}/payments?startDate=YYYY-MM-DD`
-- Get all tenant payments for a specific contract ending by specific date: `GET http://localhost:4000/contracts/{:id}/payments?endDate=YYYY-MM-DD`
-- Get all tenant payments for a specific contract in specific date range: `GET http://localhost:4000/contracts/{:id}/payments?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
-- Remove the payment: `DELETE http://localhost:4000/contracts/{:contractId}/payments/{:paymentId}`
+- To login to bash container, run `sh toolset.sh bash`
+- To run the tests from the Docker container, run `sh toolset.sh test`
+- To try it manually via Postman, import the Postman collection from `docs/assets`
