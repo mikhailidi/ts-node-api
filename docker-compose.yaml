@@ -1,0 +1,24 @@
+ARG
+
+version: '2'
+services:
+  node:
+    container_name: node-express-ts
+    restart: always
+    build:
+      context: .
+      dockerfile: .ops/Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - '4000:4000'
+    depends_on:
+      - mongo
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo-express-ts
+    image: mongo
+    ports:
+      - '27017:27017'

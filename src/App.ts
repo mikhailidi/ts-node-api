@@ -11,7 +11,7 @@ const controllers: Array<Controller> = [
   )
 ];
 
-const PORT = 4000; // Should be from .dotenv
+const PORT = Number(process.env.PORT) || 4000;
 const DB = new MemoryDatabase();
 const server: Server = new Server(DB, PORT);
 
