@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "1cea5519-9a58-45ca-8db0-06c5598690b6",
+		"name": "Test TS Node API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all tenant payments with search possibility",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/contracts/:contract_id/payments?startDate=2018-12-01&endDate=2018-12-31",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"contracts",
+						":contract_id",
+						"payments"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2018-12-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2018-12-31"
+						}
+					],
+					"variable": [
+						{
+							"key": "contract_id",
+							"value": "111222"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete payment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/contracts/:contract_id/payments/:payment_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"contracts",
+						":contract_id",
+						"payments",
+						":payment_id"
+					],
+					"variable": [
+						{
+							"key": "contract_id",
+							"value": "111222"
+						},
+						{
+							"key": "payment_id",
+							"value": "1368"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:4000"
+		}
+	]
+}
