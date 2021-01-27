@@ -1,11 +1,15 @@
 #!/bin/bash -xe
 
-if [ -z "$1" ]
-then
+function paramsError() {
   echo "Choose one of the options";
   echo " - bash -- login to bash container"
   echo " - test -- run the tests from docker container"
   exit
+}
+
+if [ -z "$1" ]
+then
+  paramsError
 fi
 
 case "$1" in 
@@ -17,5 +21,8 @@ case "$1" in
   test)
     # executes the tests from docker container 
     docker exec -it node-express-ts bash -c "yarn test"
+    ;;
+  *)
+    paramsError
     ;;
 esac
