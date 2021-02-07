@@ -192,9 +192,8 @@ describe('Retrieving tenant payment history', () => {
 describe('Creates new tenant payment', () => {
   it('Tests successfully creates payment', async () => {
     const requestBody = {
-      description: 'Very long text',
+      description: 'Super long description',
       value: 100,
-      time: '2016-12-09T00:00:00.000Z',
     };
 
     const result = await request(App)
