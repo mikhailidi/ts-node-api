@@ -1,5 +1,6 @@
 import request from 'supertest';
 import App from '../../../src/App';
+import { fakeTenantPayments } from '../../../src/data/tenantPayment';
 
 const CONTRACT_HAS_NO_PAYMENT_HISTORY = 123;
 const CONTRACT_HAS_PAYMENT_HISTORY = 111222;
@@ -201,6 +202,7 @@ describe('Creates new tenant payment', () => {
       .send(requestBody);
 
     expect(result.status).toBe(201);
+    expect(fakeTenantPayments.length).toBe(7);
   });
 });
 
