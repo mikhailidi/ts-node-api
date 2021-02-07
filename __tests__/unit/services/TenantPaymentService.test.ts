@@ -2,6 +2,7 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 import { TenantPayment } from '../../../src/models/TenantPayment';
 import { ITenantPaymentRepository } from '../../../src/repositories/TenantPaymentRepository';
 import TenantPaymentService from '../../../src/services/TenantPaymentService';
+import TenantPaymentDTO from '../../../src/dto/TenantPaymentDTO';
 
 let mockTenantPaymentModel: MockProxy<TenantPayment>;
 let mockRepository: MockProxy<ITenantPaymentRepository>;
@@ -19,6 +20,13 @@ afterEach(() => {
 });
 
 describe('Test TenantPaymentService', () => {
+  it('Tests create method', () => {
+    const tenantPaymentValueObjectMock = mock<TenantPaymentDTO>();
+
+    mockRepository.create.calledWith(tenantPaymentValueObjectMock);
+    testObject.create(tenantPaymentValueObjectMock);
+  });
+
   it('Tests deletePayment method', () => {
     const testTenantId = 123;
 
