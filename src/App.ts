@@ -24,5 +24,6 @@ const server: Server = new Server(DB, PORT);
 server.connectToDatabase();
 server.loadMiddleware(globalMiddleware);
 server.loadControllers(controllers);
+server.loadErrorHandlers();
 
 export default server.run();
