@@ -22,7 +22,7 @@ const DB = new MemoryDatabase();
 const server: Server = new Server(DB, PORT);
 
 server.connectToDatabase();
-server.loadControllers(controllers);
 server.loadMiddleware(globalMiddleware);
+server.loadControllers(controllers);
 
 export default server.run();
