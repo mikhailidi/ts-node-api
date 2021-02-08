@@ -1,3 +1,5 @@
+import { RequestHandler } from 'express';
+import { json } from 'body-parser';
 import Server from './Server';
 import Controller from './controllers/Controller';
 import { MemoryDatabase } from './db/MemoryDatabase';
@@ -11,11 +13,17 @@ const controllers: Array<Controller> = [
   )
 ];
 
+const globalMiddleware: Array<RequestHandler> = [
+  json(),
+];
+
 const PORT = Number(process.env.PORT) || 4000;
 const DB = new MemoryDatabase();
 const server: Server = new Server(DB, PORT);
 
 server.connectToDatabase();
+server.loadMiddleware(globalMiddleware);
 server.loadControllers(controllers);
+server.loadErrorHandlers();
 
 export default server.run();
