@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import TenantPaymentNotFoundException from '../exceptions/TenantPaymentNotFoundException';
 import { ITenantPaymentService, SearchCriteria } from '../services/TenantPaymentService';
+import TenantPaymentDTO from '../dto/TenantPaymentDTO';
 import Controller, { Methods } from './Controller';
+import { CreateTenantPaymentRequest, createTenantPaymentSchema } from '../requests/CreateTenantPaymentRequest';
+import { ValidatedRequest } from 'express-joi-validation';
 
 export default class TenantPaymentController extends Controller {
   public path = '/contracts';
@@ -15,6 +18,9 @@ export default class TenantPaymentController extends Controller {
       path: '/:contractId/payments',
       method: Methods.POST,
       handler: this.create.bind(this),
+      handlerMiddleware: [
+        this.validator.body(createTenantPaymentSchema)
+      ]
     },
     {
       path: '/:contractId/payments/:paymentId',
@@ -22,9 +28,8 @@ export default class TenantPaymentController extends Controller {
       handler: this.delete.bind(this),
     }
   ];
-  protected service: ITenantPaymentService;
 
-  constructor(service: ITenantPaymentService) {
+  constructor(protected service: ITenantPaymentService) {
     super(service);
   }
 
@@ -62,8 +67,15 @@ export default class TenantPaymentController extends Controller {
    * @param res 
    * @param next 
    */
-  public create(req: Request, res: Response, next: NextFunction): void {
-    res.status(201).send();
+  public create(req: ValidatedRequest<CreateTenantPaymentRequest>, res: Response, next: NextFunction): void {
+    try {
+      const tenantPayment = TenantPaymentDTO.fromRequest(req);
+      this.service.create(tenantPayment);
+      res.status(201).send();
+    } catch (e) {
+      console.log(e);
+      super.sendError(res, e.message);
+    }
   }
 
   /**
