@@ -69,6 +69,47 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create tenant payment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Newly created valid payment\",\n    \"value\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/contracts/:contract_id/payments",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"contracts",
+						":contract_id",
+						"payments"
+					],
+					"variable": [
+						{
+							"key": "contract_id",
+							"value": "111222"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
